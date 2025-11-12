@@ -1,0 +1,397 @@
+[gd_scene load_steps=25 format=3 uid="uid://b57uspbprxc8"]
+
+[ext_resource type="Script" uid="uid://bkdb80k33drdo" path="res://scripts/world.gd" id="1_jhx03"]
+[ext_resource type="Script" uid="uid://bm6wrau0tv60q" path="res://scripts/ui/fps_counter.gd" id="2_o8fc1"]
+[ext_resource type="PackedScene" uid="uid://bd3ai1v40ssao" path="res://prefabs/map.tscn" id="3_xo05s"]
+[ext_resource type="AudioStream" uid="uid://p6uvqtljqic7" path="res://audio/661248__magmadiverrr__video-game-menu-music.ogg" id="4_dss4m"]
+[ext_resource type="Shader" uid="uid://tn0031swbfv2" path="res://scripts/shaders/blur.gdshader" id="5_7t5mc"]
+[ext_resource type="Script" uid="uid://bur7ionnamva4" path="res://scripts/ui/menu/options/fullscreen.gd" id="6_lakw3"]
+[ext_resource type="Script" uid="uid://dugjdorbq7kgw" path="res://scripts/ui/menu/options/mouse_sensitivity.gd" id="7_pm21f"]
+[ext_resource type="Script" uid="uid://80mhgs820q0s" path="res://scripts/ui/menu/options/controller_sensitivity.gd" id="8_2lf6f"]
+[ext_resource type="Script" uid="uid://ccf07nekv5poa" path="res://scripts/ui/menu/options/back.gd" id="9_7iits"]
+[ext_resource type="Script" uid="uid://pvr0db03qywr" path="res://scripts/ui/menu/pause/resume.gd" id="10_oo54l"]
+[ext_resource type="Script" uid="uid://bo65kbufi0t64" path="res://scripts/ui/menu/pause/quit.gd" id="11_kpybi"]
+[ext_resource type="Script" uid="uid://bjqdjt10mlk7h" path="res://scripts/ui/menu/host_button.gd" id="12_ctatt"]
+[ext_resource type="Script" uid="uid://srmtogf4sy4o" path="res://scripts/ui/menu/options_button.gd" id="13_xgqkh"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_r06yd"]
+energy_multiplier = 1.25
+
+[sub_resource type="Sky" id="Sky_78err"]
+sky_material = SubResource("PhysicalSkyMaterial_r06yd")
+
+[sub_resource type="Environment" id="Environment_v7lsv"]
+background_mode = 2
+sky = SubResource("Sky_78err")
+tonemap_mode = 2
+tonemap_white = 6.0
+ssao_enabled = true
+glow_blend_mode = 4
+fog_enabled = true
+fog_sun_scatter = 0.17
+fog_density = 0.0099
+fog_aerial_perspective = 1.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_wntx8"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_2o6r5"]
+vertices = PackedVector3Array(-4.87167, 2.96673, -19.8717, -4.87167, 2.96673, -14.8717, 2.87833, 2.96673, -14.8717, 2.87833, 2.96673, -19.8717, -13.6217, 0.466726, -15.8717, -13.1217, 0.466726, -16.6217, -13.3717, 0.466726, -17.8717, -19.6217, 0.466726, -19.6217, -19.6217, 0.466726, -15.8717, -12.1217, 0.466726, -18.1217, -12.1217, 0.466726, -19.6217, -16.8717, 0.466726, -4.62167, -17.3717, 0.466726, -3.62167, -15.8717, 0.466726, -3.37167, -15.1217, 0.466726, -4.62167, -17.1217, 0.466726, -5.62167, -11.1217, 0.466726, -17.8717, -11.3717, 0.466726, -16.8717, -10.8717, 0.466726, -16.1217, -5.37167, 0.466726, -17.6217, -4.87167, 0.466726, -18.6217, -19.6217, 0.466726, -0.121672, -18.1217, 0.466726, -4.62167, -7.12167, 0.466726, -10.6217, -6.12167, 0.466726, -10.8717, -5.37167, 0.466726, -14.6217, -12.3717, 0.466726, -15.3717, -12.3717, 0.466726, -4.37167, -13.3717, 0.466726, -15.3717, -12.1217, 0.466726, -2.62167, -7.12167, 0.466726, -2.62167, -2.62167, 0.466726, -17.8717, 2.62833, 0.466726, -17.8717, 2.62833, 0.466726, -19.6217, -2.87167, 0.466726, -18.6217, 8.62833, 0.466726, -16.6217, 9.37833, 0.466726, -16.8717, 9.37833, 0.466726, -19.6217, 2.37833, 0.466726, -9.37167, 5.87833, 0.466726, -9.37167, 6.12833, 0.466726, -10.1217, 3.37833, 0.466726, -14.6217, 2.37833, 0.466726, -14.3717, 8.62833, 0.466726, -15.6217, 3.37833, 0.466726, -19.6217, 6.87833, 0.466726, -10.1217, 7.37833, 0.466726, -9.37167, 9.62833, 0.466726, -14.8717, 10.1283, 0.466726, -16.1217, 11.3783, 0.466726, -16.1217, 17.1283, 0.466726, -12.3717, 17.3783, 0.466726, -11.3717, 19.6283, 0.466726, -11.3717, 11.8783, 0.466726, -15.6217, 19.6283, 0.466726, -19.6217, 11.8783, 0.466726, -14.8717, 11.3783, 0.466726, -14.6217, 15.1283, 0.466726, -11.8717, 15.3783, 0.466726, -12.3717, -12.6217, 1.46673, -16.6217, -11.3717, 1.46673, -16.1217, -11.8717, 1.46673, -16.8717, -12.8717, 1.46673, -17.6217, -11.6217, 1.46673, -17.6217, -4.62167, 0.466726, -16.8717, -4.62167, 0.466726, -15.1217, 2.62833, 0.466726, -15.1217, 2.62833, 0.466726, -16.8717, 9.62833, 1.46673, -16.3717, 9.12833, 1.46673, -16.3717, 9.37833, 1.46673, -15.3717, 9.87833, 1.46673, -15.6217, 11.3783, 1.46673, -15.1217, 11.3783, 1.46673, -15.6217, 17.3783, 0.466726, 4.37833, 16.8783, 0.466726, 3.37833, 16.6283, 0.466726, 4.37833, 16.3783, 0.466726, 6.37833, 17.1283, 0.466726, 6.37833, 15.6283, 0.466726, 4.37833, 16.1283, 0.466726, 6.87833, 18.6283, 0.466726, -4.37167, 19.1283, 0.466726, -4.62167, 16.8783, 0.466726, -10.1217, 15.6283, 0.466726, -10.1217, 7.87833, 0.466726, -3.12167, 13.8783, 0.466726, -4.37167, 15.1283, 0.466726, -10.6217, 17.1283, 0.466726, -3.37167, 17.8783, 0.466726, 4.12833, 19.6283, 0.466726, 3.37833, 18.3783, 0.466726, 7.37833, 19.6283, 0.466726, 7.37833, 16.6283, 0.466726, -4.37167, 19.6283, 0.466726, -3.37167, 13.6283, 0.466726, -3.12167, 7.12833, 0.466726, -3.87167, -1.12167, 0.466726, -7.37167, 1.12833, 0.466726, -7.37167, 1.12833, 0.466726, -9.12167, -1.37167, 0.466726, -9.37167, -5.62167, 0.466726, -10.6217, -5.62167, 0.466726, -9.37167, 15.6283, 1.46673, -11.8717, 15.6283, 1.46673, -10.6217, 16.8783, 1.46673, -10.6217, 16.8783, 1.46673, -11.8717, -6.62167, 1.46673, -10.3717, -6.62167, 1.46673, -9.37167, -6.12167, 1.46673, -9.37167, -6.12167, 1.46673, -10.3717, -6.62167, 5.46673, -8.87167, -6.62167, 5.46673, -1.12167, -1.62167, 5.46673, -1.12167, -1.62167, 5.46673, -8.87167, 1.62833, 2.96673, -8.87167, 1.62833, 2.96673, -1.12167, 6.62833, 2.96673, -1.12167, 6.62833, 2.96673, -8.87167, -6.37167, 0.466726, -8.62167, -6.37167, 0.466726, -1.37167, -4.62167, 0.466726, -1.37167, -4.62167, 0.466726, -8.62167, -6.37167, 2.96673, -8.62167, -6.37167, 2.96673, -1.37167, -4.62167, 2.96673, -1.37167, -4.62167, 2.96673, -8.62167, -1.37167, 0.466726, 1.62833, -1.37167, 0.466726, -0.621672, -2.62167, 0.466726, -1.12167, -3.62167, 0.466726, -0.871672, -6.87167, 0.466726, 1.62833, -2.62167, 0.466726, -1.87167, -2.87167, 0.466726, -2.62167, -12.1217, 0.466726, 3.12833, -7.12167, 0.466726, 3.12833, -6.87167, 0.466726, -0.621672, -1.87167, 0.466726, -2.12167, -1.87167, 0.466726, -8.62167, -3.62167, 0.466726, -8.62167, -3.62167, 0.466726, -2.87167, -3.62167, 2.96673, -8.62167, -3.62167, 2.96673, -1.37167, -1.87167, 2.96673, -1.37167, -1.87167, 2.96673, -8.62167, 1.87833, 0.466726, -8.62167, 1.87833, 0.466726, -1.37167, 3.62833, 0.466726, -1.37167, 3.62833, 0.466726, -8.62167, 4.62833, 0.466726, -8.62167, 4.62833, 0.466726, -1.37167, 6.37833, 0.466726, -1.37167, 6.37833, 0.466726, -8.62167, 1.12833, 0.466726, 1.87833, 5.12833, 0.466726, 1.62833, 5.12833, 0.466726, -0.621672, 1.12833, 0.466726, -0.871672, -1.12167, 0.466726, 8.37833, 1.12833, 0.466726, 8.37833, -19.3717, 2.96673, 1.37833, -19.8717, 2.96673, 1.62833, -19.6217, 2.96673, 2.62833, -17.6217, 2.96673, 3.12833, -15.6217, 2.96673, -2.87167, -17.3717, 2.96673, -5.12167, -14.8717, 2.96673, -3.87167, -15.6217, 2.96673, -4.62167, -15.1217, 2.96673, -3.12167, -14.8717, 2.96673, 3.87833, -12.6217, 2.96673, 3.87833, -12.6217, 2.96673, -3.87167, 19.8783, 2.96673, 3.62833, 19.8783, 2.96673, 0.628328, 19.3783, 2.96673, 0.378328, 17.1283, 2.96673, -0.621672, 17.6283, 2.96673, 3.87833, 18.8783, 2.96673, -4.12167, 14.1283, 2.96673, -3.87167, 16.6283, 2.96673, -0.871672, 14.1283, 2.96673, 3.87833, 16.3783, 2.96673, 3.87833, -15.3717, 0.466726, 4.12833, -15.6217, 0.466726, -1.37167, -17.1217, 0.466726, 3.37833, -19.6217, 0.466726, 13.8783, -16.8717, 0.466726, 13.8783, -16.8717, 0.466726, 13.1283, -18.1217, 0.466726, 3.37833, -19.6217, 0.466726, 2.62833, -15.8717, 0.466726, 12.8783, -15.3717, 0.466726, 14.6283, -12.3717, 0.466726, 15.1283, -10.8717, 0.466726, 14.8783, -7.12167, 0.466726, 11.1283, -12.3717, 0.466726, 4.37833, -14.6217, 0.466726, -3.62167, -14.6217, 0.466726, 3.62833, -12.8717, 0.466726, 3.62833, -12.8717, 0.466726, -3.62167, 14.3783, 0.466726, -3.62167, 14.3783, 0.466726, 3.62833, 16.1283, 0.466726, 3.62833, 16.1283, 0.466726, -3.62167, 7.62833, 0.466726, -2.37167, 7.12833, 0.466726, -2.37167, 6.87833, 0.466726, -0.621672, 6.87833, 0.466726, 1.62833, 7.12833, 0.466726, 3.12833, 13.6283, 0.466726, 3.12833, -6.62167, 2.96673, 2.12833, -6.62167, 2.96673, 9.87833, -1.62167, 2.96673, 9.87833, -1.62167, 2.96673, 2.12833, 1.62833, 5.46673, 2.12833, 1.62833, 5.46673, 9.87833, 6.62833, 5.46673, 9.87833, 6.62833, 5.46673, 2.12833, -6.37167, 0.466726, 2.37833, -6.37167, 0.466726, 9.62833, -4.62167, 0.466726, 9.62833, -4.62167, 0.466726, 2.37833, -3.62167, 0.466726, 2.37833, -3.62167, 0.466726, 9.62833, -1.87167, 0.466726, 9.62833, -1.87167, 0.466726, 2.37833, 1.87833, 0.466726, 2.37833, 1.87833, 0.466726, 9.62833, 3.62833, 0.466726, 9.62833, 3.62833, 0.466726, 2.37833, 1.87833, 2.96673, 2.37833, 1.87833, 2.96673, 9.62833, 3.62833, 2.96673, 9.62833, 3.62833, 2.96673, 2.37833, 4.62833, 0.466726, 2.37833, 4.62833, 0.466726, 9.62833, 6.37833, 0.466726, 9.62833, 6.37833, 0.466726, 2.37833, 4.62833, 2.96673, 2.37833, 4.62833, 2.96673, 9.62833, 6.37833, 2.96673, 9.62833, 6.37833, 2.96673, 2.37833, 17.3783, 0.466726, 8.62833, 19.6283, 0.466726, 19.6283, 13.8783, 0.466726, 4.37833, 16.1283, 0.466726, 8.12833, 7.12833, 0.466726, 11.3783, 6.12833, 0.466726, 11.8783, 3.37833, 0.466726, 14.8783, 0.628328, 0.466726, 15.1283, -4.62167, 0.466726, 15.1283, -4.62167, 0.466726, 16.8783, 0.878328, 0.466726, 15.8783, 16.6283, 0.466726, 8.62833, 3.12833, 0.466726, 16.8783, 2.37833, 0.466726, 15.8783, 3.37833, 0.466726, 19.6283, 16.6283, 1.46673, 6.87833, 16.6283, 1.46673, 8.12833, 17.8783, 1.46673, 7.37833, 1.37833, 0.466726, 10.3783, -1.37167, 0.466726, 10.3783, -3.37167, 0.466726, 14.3783, 3.12833, 0.466726, 14.3783, 5.62833, 0.466726, 11.6283, -3.37167, 0.466726, 10.3783, 5.62833, 0.466726, 10.3783, -6.62167, 1.46673, 10.3783, -6.62167, 1.46673, 11.3783, -6.12167, 1.46673, 11.3783, -6.12167, 1.46673, 10.3783, -5.62167, 0.466726, 10.3783, -6.12167, 0.466726, 11.8783, -5.37167, 0.466726, 14.6283, -10.1217, 0.466726, 15.8783, -11.1217, 0.466726, 17.1283, -11.1217, 0.466726, 19.6283, -5.37167, 0.466726, 19.6283, 6.12833, 1.46673, 10.3783, 6.12833, 1.46673, 11.3783, 6.62833, 1.46673, 11.3783, 6.62833, 1.46673, 10.3783, -16.3717, 1.46673, 13.3783, -16.3717, 1.46673, 14.6283, -15.8717, 1.46673, 14.6283, -15.6217, 0.466726, 15.1283, -12.3717, 0.466726, 16.1283, -16.3717, 0.466726, 15.1283, -19.6217, 0.466726, 19.6283, -4.87167, 2.96673, 14.8783, -4.87167, 2.96673, 19.8783, 2.87833, 2.96673, 19.8783, 2.87833, 2.96673, 14.8783, -11.3717, 1.46673, 16.6283, -10.8717, 1.46673, 16.6283, -10.6217, 1.46673, 15.8783, -10.6217, 1.46673, 15.3783, -11.8717, 1.46673, 15.3783, -4.62167, 0.466726, 17.8783, -4.62167, 0.466726, 19.6283, 2.62833, 0.466726, 19.6283, 2.62833, 0.466726, 17.8783)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(9, 6, 10), PackedInt32Array(10, 6, 7), PackedInt32Array(13, 12, 11), PackedInt32Array(13, 11, 14), PackedInt32Array(14, 11, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(9, 10, 16), PackedInt32Array(16, 10, 19), PackedInt32Array(19, 10, 20), PackedInt32Array(22, 21, 8), PackedInt32Array(24, 23, 25), PackedInt32Array(25, 23, 19), PackedInt32Array(19, 23, 18), PackedInt32Array(18, 23, 26), PackedInt32Array(14, 15, 27), PackedInt32Array(27, 15, 23), PackedInt32Array(23, 15, 26), PackedInt32Array(26, 15, 28), PackedInt32Array(29, 27, 30), PackedInt32Array(30, 27, 23), PackedInt32Array(31, 34, 32), PackedInt32Array(32, 34, 33), PackedInt32Array(34, 20, 33), PackedInt32Array(33, 20, 10), PackedInt32Array(4, 28, 8), PackedInt32Array(8, 28, 15), PackedInt32Array(8, 15, 22), PackedInt32Array(37, 36, 35), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 41), PackedInt32Array(41, 38, 42), PackedInt32Array(35, 43, 41), PackedInt32Array(37, 35, 44), PackedInt32Array(44, 35, 41), PackedInt32Array(45, 47, 46), PackedInt32Array(40, 41, 45), PackedInt32Array(45, 41, 43), PackedInt32Array(45, 43, 47), PackedInt32Array(48, 36, 49), PackedInt32Array(49, 36, 37), PackedInt32Array(52, 51, 50), PackedInt32Array(49, 37, 53), PackedInt32Array(53, 37, 50), PackedInt32Array(50, 37, 52), PackedInt32Array(52, 37, 54), PackedInt32Array(58, 57, 55), PackedInt32Array(55, 57, 56), PackedInt32Array(55, 53, 58), PackedInt32Array(58, 53, 50), PackedInt32Array(61, 60, 59), PackedInt32Array(61, 59, 63), PackedInt32Array(63, 59, 62), PackedInt32Array(67, 66, 64), PackedInt32Array(64, 66, 65), PackedInt32Array(68, 71, 69), PackedInt32Array(69, 71, 70), PackedInt32Array(73, 72, 71), PackedInt32Array(71, 72, 70), PackedInt32Array(75, 74, 76), PackedInt32Array(76, 74, 78), PackedInt32Array(76, 78, 77), PackedInt32Array(77, 80, 76), PackedInt32Array(76, 80, 79), PackedInt32Array(82, 81, 83), PackedInt32Array(83, 81, 84), PackedInt32Array(56, 87, 47), PackedInt32Array(47, 87, 46), PackedInt32Array(46, 87, 86), PackedInt32Array(46, 86, 85), PackedInt32Array(89, 88, 90), PackedInt32Array(90, 88, 81), PackedInt32Array(89, 90, 74), PackedInt32Array(74, 90, 78), PackedInt32Array(78, 90, 91), PackedInt32Array(91, 90, 92), PackedInt32Array(88, 93, 81), PackedInt32Array(81, 93, 84), PackedInt32Array(84, 93, 87), PackedInt32Array(51, 52, 83), PackedInt32Array(83, 52, 82), PackedInt32Array(52, 94, 82), PackedInt32Array(87, 93, 86), PackedInt32Array(56, 57, 87), PackedInt32Array(86, 95, 85), PackedInt32Array(46, 85, 96), PackedInt32Array(98, 97, 99), PackedInt32Array(99, 97, 100), PackedInt32Array(100, 102, 101), PackedInt32Array(38, 99, 100), PackedInt32Array(24, 25, 101), PackedInt32Array(101, 25, 100), PackedInt32Array(100, 25, 38), PackedInt32Array(38, 25, 42), PackedInt32Array(106, 105, 103), PackedInt32Array(103, 105, 104), PackedInt32Array(110, 109, 107), PackedInt32Array(107, 109, 108), PackedInt32Array(114, 113, 111), PackedInt32Array(111, 113, 112), PackedInt32Array(118, 117, 115), PackedInt32Array(115, 117, 116), PackedInt32Array(122, 121, 119), PackedInt32Array(119, 121, 120), PackedInt32Array(126, 125, 123), PackedInt32Array(123, 125, 124), PackedInt32Array(129, 128, 130), PackedInt32Array(130, 128, 127), PackedInt32Array(130, 127, 131), PackedInt32Array(132, 129, 133), PackedInt32Array(133, 129, 130), PackedInt32Array(131, 135, 136), PackedInt32Array(136, 135, 30), PackedInt32Array(30, 135, 134), PackedInt32Array(30, 134, 29), PackedInt32Array(132, 133, 137), PackedInt32Array(137, 133, 138), PackedInt32Array(140, 139, 133), PackedInt32Array(133, 139, 138), PackedInt32Array(136, 130, 131), PackedInt32Array(144, 143, 141), PackedInt32Array(141, 143, 142), PackedInt32Array(148, 147, 145), PackedInt32Array(145, 147, 146), PackedInt32Array(152, 151, 149), PackedInt32Array(149, 151, 150), PackedInt32Array(127, 128, 153), PackedInt32Array(153, 128, 156), PackedInt32Array(153, 156, 155), PackedInt32Array(153, 155, 154), PackedInt32Array(98, 156, 97), PackedInt32Array(97, 156, 128), PackedInt32Array(158, 157, 153), PackedInt32Array(153, 157, 127), PackedInt32Array(161, 160, 159), PackedInt32Array(161, 159, 162), PackedInt32Array(162, 159, 163), PackedInt32Array(163, 159, 164), PackedInt32Array(167, 163, 165), PackedInt32Array(165, 163, 166), PackedInt32Array(166, 163, 164), PackedInt32Array(165, 170, 167), PackedInt32Array(167, 170, 168), PackedInt32Array(168, 170, 169), PackedInt32Array(173, 172, 174), PackedInt32Array(174, 172, 171), PackedInt32Array(174, 171, 175), PackedInt32Array(174, 178, 173), PackedInt32Array(173, 178, 176), PackedInt32Array(176, 178, 177), PackedInt32Array(180, 179, 178), PackedInt32Array(178, 179, 177), PackedInt32Array(182, 181, 183), PackedInt32Array(185, 184, 186), PackedInt32Array(186, 184, 187), PackedInt32Array(187, 184, 188), PackedInt32Array(183, 181, 187), PackedInt32Array(187, 181, 189), PackedInt32Array(187, 189, 186), PackedInt32Array(191, 190, 189), PackedInt32Array(191, 189, 192), PackedInt32Array(192, 189, 193), PackedInt32Array(193, 189, 194), PackedInt32Array(194, 189, 181), PackedInt32Array(134, 135, 194), PackedInt32Array(194, 135, 193), PackedInt32Array(12, 13, 188), PackedInt32Array(188, 13, 187), PackedInt32Array(198, 197, 195), PackedInt32Array(195, 197, 196), PackedInt32Array(202, 201, 199), PackedInt32Array(199, 201, 200), PackedInt32Array(204, 203, 205), PackedInt32Array(205, 203, 206), PackedInt32Array(206, 203, 207), PackedInt32Array(205, 206, 155), PackedInt32Array(155, 206, 154), PackedInt32Array(85, 95, 203), PackedInt32Array(203, 95, 208), PackedInt32Array(203, 208, 207), PackedInt32Array(212, 211, 209), PackedInt32Array(209, 211, 210), PackedInt32Array(216, 215, 213), PackedInt32Array(213, 215, 214), PackedInt32Array(220, 219, 217), PackedInt32Array(217, 219, 218), PackedInt32Array(224, 223, 221), PackedInt32Array(221, 223, 222), PackedInt32Array(228, 227, 225), PackedInt32Array(225, 227, 226), PackedInt32Array(232, 231, 229), PackedInt32Array(229, 231, 230), PackedInt32Array(236, 235, 233), PackedInt32Array(233, 235, 234), PackedInt32Array(240, 239, 237), PackedInt32Array(237, 239, 238), PackedInt32Array(91, 92, 241), PackedInt32Array(241, 92, 242), PackedInt32Array(80, 243, 79), PackedInt32Array(80, 244, 243), PackedInt32Array(243, 244, 207), PackedInt32Array(207, 244, 245), PackedInt32Array(247, 246, 245), PackedInt32Array(248, 251, 249), PackedInt32Array(249, 251, 250), PackedInt32Array(252, 245, 244), PackedInt32Array(254, 253, 251), PackedInt32Array(251, 253, 250), PackedInt32Array(247, 245, 255), PackedInt32Array(255, 245, 252), PackedInt32Array(255, 252, 241), PackedInt32Array(255, 241, 242), PackedInt32Array(253, 254, 247), PackedInt32Array(255, 253, 247), PackedInt32Array(207, 208, 243), PackedInt32Array(258, 257, 256), PackedInt32Array(158, 259, 157), PackedInt32Array(157, 259, 260), PackedInt32Array(259, 262, 260), PackedInt32Array(260, 262, 261), PackedInt32Array(263, 246, 262), PackedInt32Array(262, 246, 247), PackedInt32Array(261, 264, 260), PackedInt32Array(263, 262, 265), PackedInt32Array(265, 262, 259), PackedInt32Array(269, 268, 266), PackedInt32Array(266, 268, 267), PackedInt32Array(270, 264, 271), PackedInt32Array(271, 264, 272), PackedInt32Array(272, 264, 261), PackedInt32Array(274, 273, 275), PackedInt32Array(275, 273, 276), PackedInt32Array(276, 273, 272), PackedInt32Array(271, 272, 193), PackedInt32Array(193, 272, 273), PackedInt32Array(193, 273, 192), PackedInt32Array(280, 279, 277), PackedInt32Array(277, 279, 278), PackedInt32Array(283, 282, 281), PackedInt32Array(190, 191, 284), PackedInt32Array(284, 191, 285), PackedInt32Array(274, 275, 285), PackedInt32Array(285, 275, 284), PackedInt32Array(284, 275, 286), PackedInt32Array(286, 275, 287), PackedInt32Array(185, 286, 184), PackedInt32Array(184, 286, 287), PackedInt32Array(291, 290, 288), PackedInt32Array(288, 290, 289), PackedInt32Array(293, 292, 294), PackedInt32Array(294, 292, 295), PackedInt32Array(295, 292, 296), PackedInt32Array(300, 299, 297), PackedInt32Array(297, 299, 298)]
+agent_radius = 0.1
+
+[sub_resource type="Animation" id="Animation_ug7wi"]
+resource_name = "Dolly"
+length = 120.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../DollyCamera:position:z")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.659, -0.25, 0, 0.25, 0, -14.157, -0.25, 0, 0.25, 0, 13.2434, -0.25, 0, 0.25, 0, 0.659, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 30.0667, 89.9333, 120)
+}
+
+[sub_resource type="Animation" id="Animation_ei2s0"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../DollyCamera:position:z")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(13.2434, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lekn2"]
+_data = {
+&"Dolly": SubResource("Animation_ug7wi"),
+&"RESET": SubResource("Animation_ei2s0")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nou27"]
+shader = ExtResource("5_7t5mc")
+shader_parameter/blur_amount = 2.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_utqnk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70uel"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="World" type="Node"]
+script = ExtResource("1_jhx03")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v7lsv")
+camera_attributes = SubResource("CameraAttributesPractical_wntx8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.835807, -0.47011, 0.283589, -0.375944, 0.866496, 0.328406, -0.400115, 0.167871, -0.900959, 0, 4.88489, 0)
+light_temperature = 4300.0
+light_energy = 5.0
+shadow_enabled = true
+shadow_bias = 0.0
+directional_shadow_split_1 = 0.04
+directional_shadow_split_2 = 0.11
+directional_shadow_split_3 = 0.33
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 99.3
+
+[node name="FpsCounter" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_o8fc1")
+
+[node name="NavMap" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_2o6r5")
+
+[node name="map" parent="NavMap" instance=ExtResource("3_xo05s")]
+
+[node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="Menu"]
+unique_name_in_owner = true
+stream = ExtResource("4_dss4m")
+volume_db = -20.0
+bus = &"Music"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menu"]
+root_node = NodePath("../Blur")
+libraries = {
+&"": SubResource("AnimationLibrary_lekn2")
+}
+autoplay = "Dolly"
+
+[node name="Blur" type="ColorRect" parent="Menu"]
+material = SubResource("ShaderMaterial_nou27")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DollyCamera" type="Camera3D" parent="Menu"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.702964, 13.2434)
+
+[node name="Options" type="PanelContainer" parent="Menu"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_right = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_utqnk")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Options"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Options/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="OptionsLabel" type="Label" parent="Menu/Options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fullscreen" type="CheckButton" parent="Menu/Options/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Fullscreen"
+script = ExtResource("6_lakw3")
+
+[node name="FpsCounter" type="CheckButton" parent="Menu/Options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "FPS counter"
+
+[node name="Ping" type="CheckButton" parent="Menu/Options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Shows connection trip time to host (in milliseconds)"
+text = "View Ping"
+
+[node name="SensitivityLabel" type="Label" parent="Menu/Options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sensitivity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mouse sensitivity"
+
+[node name="MouseSensitivity" type="HSlider" parent="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.001
+max_value = 0.1
+step = 0.001
+value = 0.005
+script = ExtResource("7_pm21f")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menu/Options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Controller sensitivity"
+
+[node name="ControllerSensitivity" type="HSlider" parent="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.001
+max_value = 0.1
+step = 0.001
+value = 0.01
+script = ExtResource("8_2lf6f")
+
+[node name="Back" type="Button" parent="Menu/Options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+script = ExtResource("9_7iits")
+
+[node name="PauseMenu" type="PanelContainer" parent="Menu"]
+visible = false
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_right = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PauseMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="PauseLabel" type="Label" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pause Menu
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resume" type="Button" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+script = ExtResource("10_oo54l")
+
+[node name="Options" type="Button" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options
+"
+
+[node name="Quit" type="Button" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("11_kpybi")
+
+[node name="MainMenu" type="PanelContainer" parent="Menu"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 391.0
+grow_vertical = 2
+theme = SubResource("Theme_utqnk")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MainMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="MainMenuLabel" type="Label" parent="Menu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HostButton" type="Button" parent="Menu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+script = ExtResource("12_ctatt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddressEntry" type="LineEdit" parent="Menu/MainMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter Address Here to join"
+alignment = 1
+
+[node name="JoinButton" type="Button" parent="Menu/MainMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "  Join  "
+
+[node name="OptionsButton" type="Button" parent="Menu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Options"
+script = ExtResource("13_xgqkh")
+
+[node name="Quit" type="Button" parent="Menu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("11_kpybi")
+
+[node name="MusicToggle" type="CheckButton" parent="Menu/MainMenu"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+button_pressed = true
+text = "Music"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn", "res://scenes/Shoot.tscn")
+spawn_path = NodePath("..")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Hud" type="PanelContainer" parent="Hud"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_70uel")
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud/Hud"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/Hud/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="ScoreLabel" type="Label" parent="Hud/Hud/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Kills: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ZombieList" type="Node3D" parent="."]
+
+[node name="ZombieSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../ZombieList")
+
+[connection signal="toggled" from="Menu/Options/MarginContainer/VBoxContainer/FpsCounter" to="FpsCounter" method="_on_fps_counter_toggled"]
+[connection signal="toggled" from="Menu/Options/MarginContainer/VBoxContainer/Ping" to="FpsCounter" method="_on_ping_toggled"]
+[connection signal="value_changed" from="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer/MouseSensitivity" to="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer/MouseSensitivity" method="_on_value_changed"]
+[connection signal="value_changed" from="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer2/ControllerSensitivity" to="Menu/Options/MarginContainer/VBoxContainer/HBoxContainer2/ControllerSensitivity" method="_on_value_changed"]
+[connection signal="pressed" from="Menu/Options/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Menu/Options/MarginContainer/VBoxContainer/Back" to="Menu/PauseMenu/MarginContainer/VBoxContainer/Options" method="_on_back_pressed"]
+[connection signal="pressed" from="Menu/Options/MarginContainer/VBoxContainer/Back" to="Menu/MainMenu/MarginContainer/VBoxContainer/OptionsButton" method="_on_back_pressed"]
+[connection signal="pressed" from="Menu/PauseMenu/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Menu/PauseMenu/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Menu/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Menu/MainMenu/MarginContainer/VBoxContainer/HBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="toggled" from="Menu/MainMenu/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_toggled"]
+[connection signal="toggled" from="Menu/MainMenu/MarginContainer/VBoxContainer/OptionsButton" to="Menu/Options/MarginContainer/VBoxContainer/Fullscreen" method="_on_options_button_toggled"]
+[connection signal="toggled" from="Menu/MainMenu/MusicToggle" to="." method="_on_music_toggle_toggled"]
+
+[editable path="NavMap/map"]

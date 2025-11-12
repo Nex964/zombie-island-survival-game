@@ -5,10 +5,18 @@ extends CharacterBody3D
 @onready var muzzle_flash: GPUParticles3D = $Camera3D/pistol/GPUParticles3D
 @onready var raycast: RayCast3D = $Camera3D/RayCast3D
 @onready var gunshot_sound: AudioStreamPlayer3D = %GunshotSound
-@onready var shootParticles = preload("res://scenes/Shoot.tscn")
+@onready var virtualStick: VirtualJoystick = $"../Hud/Hud2/MarginContainer/VBoxContainer/VirtualJoystick"
+@onready var shootParticles = preload("res://prefabs/Shoot.tscn")
+@onready var bulletDecal = preload("res://prefabs/effects/bullet_decal.tscn")
+
+@onready var healthBar: ProgressBar = $"../Hud/Hud/MarginContainer/HBoxContainer/Stats/HealthBar"
+@onready var staminaBar: ProgressBar = $"../Hud/Hud/MarginContainer/HBoxContainer/Stats/StaminaBar"
+
 
 ## Number of shots before a player dies
 @export var health : int = 2
+@export var stamina: float = 100
+
 ## The xyz position of the random spawns, you can add as many as you want!
 @export var spawns: PackedVector3Array = ([
 	Vector3(-18, 100.2, 0),
@@ -21,6 +29,7 @@ var axis_vector : Vector2
 var	mouse_captured : bool = true
 
 const SPEED = 5.5
+const SPRINT_SPEED = 3.5
 const JUMP_VELOCITY = 4.5
 
 func _enter_tree() -> void:
@@ -59,6 +68,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			var hit_player: Object = raycast.get_collider()
 			hit_player.recieve_damage.rpc_id(hit_player.get_multiplayer_authority())
 			play_shoot_animation(hit_player.get("position"))
+		elif raycast.is_colliding():
+			var bdecal: Node3D = bulletDecal.instantiate()
+			var collider: Object = raycast.get_collider()
+			collider.add_child(bdecal)
+			bdecal.global_transform.origin = raycast.get_collision_point()
+			bdecal.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.UP)
 
 	if Input.is_action_just_pressed("respawn"):
 		recieve_damage(2)
@@ -85,11 +100,23 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
+	if virtualStick != null:
+		input_dir = virtualStick.get_value();
+		
+	var calculated_speed = SPEED;
+	
+	if Input.is_action_pressed("sprint"):
+		calculated_speed = SPEED + SPRINT_SPEED
+		stamina -= 0.5
+	
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+	if direction && stamina > 0:
+		if stamina > 0:
+			velocity.x = direction.x * calculated_speed 
+			velocity.z = direction.z * calculated_speed
+			stamina -= 0.1
 	else:
+		#if stamina > 0:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
@@ -99,6 +126,11 @@ func _physics_process(delta: float) -> void:
 		anim_player.play("move")
 	else:
 		anim_player.play("idle")
+		
+	staminaBar.value = stamina
+	if stamina < -5: stamina = -5
+	if stamina > 100: stamina = 100
+	stamina += 0.05
 
 	move_and_slide()
 
@@ -109,7 +141,7 @@ func play_shoot_effects() -> void:
 	muzzle_flash.restart()
 	muzzle_flash.emitting = true
 	
-func play_shoot_animation(postion) -> void:
+func play_shoot_animation(postion: Vector3) -> void:
 	var shoot_particle: GPUParticles3D = shootParticles.instantiate()
 	shoot_particle.position = postion
 	get_tree().get_current_scene().add_child(shoot_particle)
@@ -120,8 +152,11 @@ func recieve_damage(damage:= 1) -> void:
 	health -= damage
 	print("Player damage called:" + str(health))
 	if health <= 0:
-		health = 2
+		health = 3
+		stamina = 100
 		position = spawns[randi() % spawns.size()]
+	
+	healthBar.value = health
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "shoot":

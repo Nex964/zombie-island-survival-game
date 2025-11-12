@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://50lmj50sjc"
-path.s3tc="res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.s3tc.ctex"
-path.etc2="res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.etc2.ctex"
+path.bptc="res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.bptc.ctex"
+path.astc="res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,12 +13,12 @@ metadata={
 [deps]
 
 source_file="res://imports/textures/ground_normal_roughness.png"
-dest_files=["res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.s3tc.ctex", "res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.etc2.ctex"]
+dest_files=["res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.bptc.ctex", "res://.godot/imported/ground_normal_roughness.png-21e6cf0ba15fa5898fbb590b9796d143.astc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=2

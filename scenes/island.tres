@@ -1,0 +1,18 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://q3oh8gslq3ua"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_r06yd"]
+energy_multiplier = 1.25
+
+[sub_resource type="Sky" id="Sky_78err"]
+sky_material = SubResource("PhysicalSkyMaterial_r06yd")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_78err")
+tonemap_mode = 2
+tonemap_white = 6.0
+glow_blend_mode = 4
+fog_light_energy = 2.23
+fog_sun_scatter = 0.25
+fog_density = 0.0241
+fog_aerial_perspective = 1.0
