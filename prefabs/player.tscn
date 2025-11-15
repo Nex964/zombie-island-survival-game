@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://b2qhxdrnviyqf"]
+[gd_scene load_steps=21 format=3 uid="uid://b2qhxdrnviyqf"]
 
 [ext_resource type="Script" uid="uid://lvl5p1hhltvn" path="res://scripts/player.gd" id="1_8tdgl"]
 [ext_resource type="PackedScene" uid="uid://cutckskghm3gy" path="res://imports/pistol.glb" id="2_0s6en"]
 [ext_resource type="Texture2D" uid="uid://ctosmto80mu2s" path="res://textures/kenney_particle_pack/star_05.png" id="3_ep0ec"]
 [ext_resource type="AudioStream" uid="uid://bevvvtb8n4qfc" path="res://audio/645317__darkshroom__m9_noisegate-1780.ogg" id="3_pilvn"]
+[ext_resource type="Script" uid="uid://o6o5f8gv8bsc" path="res://imports/pistol.gd" id="3_u51tk"]
 [ext_resource type="Texture2D" uid="uid://duu4nryr7idps" path="res://textures/kenney_particle_pack/circle_05.png" id="4_ssmal"]
 [ext_resource type="Script" uid="uid://bllie57crca53" path="res://scripts/ui/crosshair.gd" id="5_fnci2"]
 
@@ -43,7 +44,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/pistol:position")
+tracks/0/path = NodePath("Camera3D/RightHand/pistol:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -55,7 +56,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D/pistol:rotation")
+tracks/1/path = NodePath("Camera3D/RightHand/pistol:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -72,7 +73,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/pistol:position")
+tracks/0/path = NodePath("Camera3D/RightHand/pistol:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -84,7 +85,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D/pistol:rotation")
+tracks/1/path = NodePath("Camera3D/RightHand/pistol:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -101,7 +102,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/pistol:position")
+tracks/0/path = NodePath("Camera3D/RightHand/pistol:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -117,7 +118,7 @@ length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/pistol:position")
+tracks/0/path = NodePath("Camera3D/RightHand/pistol:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -129,7 +130,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D/pistol:rotation")
+tracks/1/path = NodePath("Camera3D/RightHand/pistol:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -173,15 +174,20 @@ shape = SubResource("CapsuleShape3D_kk8xf")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
-[node name="pistol" parent="Camera3D" instance=ExtResource("2_0s6en")]
+[node name="RightHand" type="Node3D" parent="Camera3D"]
+script = ExtResource("3_u51tk")
+camera_path = NodePath("..")
+ads_position = Vector3(-0.5, 0.1, 0.2)
+
+[node name="pistol" parent="Camera3D/RightHand" instance=ExtResource("2_0s6en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.25, -0.5)
 
-[node name="GunshotSound" type="AudioStreamPlayer3D" parent="Camera3D/pistol"]
+[node name="GunshotSound" type="AudioStreamPlayer3D" parent="Camera3D/RightHand/pistol"]
 unique_name_in_owner = true
 stream = ExtResource("3_pilvn")
 bus = &"SFX"
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Camera3D/pistol"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Camera3D/RightHand/pistol"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00020802, 0.0394075, -0.282182)
 emitting = false
 amount = 1

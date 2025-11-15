@@ -27,7 +27,7 @@ var targetPlayer;
 	Vector3(17, 1.2, -17),
 ]
 
-func _process(delta):
+func _physics_process(delta):
 	if health <= 0:
 		return
 	
@@ -54,13 +54,23 @@ func _process(delta):
 		if direction.length() > 0.1:
 			var new_velocity = direction.normalized() * speed
 			velocity = velocity.move_toward(new_velocity, 0.25)
-			look_at(current_location + direction, Vector3.UP)
+			#look_at(current_location + direction, Vector3.UP)
+			var target_dir = direction.normalized()
+			var target_angle = atan2(target_dir.x, target_dir.z)
+			rotation.y = lerp_angle(rotation.y, target_angle, delta * 5)
+
 		move_and_slide()
 
 func start_attack():
 	isAttacking = true
 	isWalking = false
 	velocity = Vector3.ZERO
+	
+	
+	# always clean signals
+	if animation_player.is_connected("animation_finished", Callable(self, "on_attack_finished")):
+		animation_player.disconnect("animation_finished", Callable(self, "on_attack_finished"))
+	
 	animation_player.play("zombie_attack")
 	animation_player.connect("animation_finished", Callable(self, "on_attack_finished"), ConnectFlags.CONNECT_ONE_SHOT)
 
@@ -96,6 +106,9 @@ func recieve_damage(damage := 1) -> void:
 	health -= damage
 	if health <= 0:
 		animation_player.play("Zombie Dying")
+		if animation_player.is_connected("animation_finished", Callable(self, "on_die")):
+			animation_player.disconnect("animation_finished", Callable(self, "on_die"))
+		
 		animation_player.connect("animation_finished", Callable(self, "on_die"))
 		var kills = int(score_label.text.split(" ")[1])
 		score_label.text = "Kills: " + str(kills + 1)
@@ -104,6 +117,8 @@ func recieve_damage(damage := 1) -> void:
 	else:
 		isWalking = false
 		animation_player.play("zombie_hit")
+		if animation_player.is_connected("animation_finished", Callable(self, "on_hit_complete")):
+			animation_player.disconnect("animation_finished", Callable(self, "on_hit_complete"))
 		animation_player.connect("animation_finished", Callable(self, "on_hit_complete"), ConnectFlags.CONNECT_ONE_SHOT)
 
 @rpc("authority", "call_local")

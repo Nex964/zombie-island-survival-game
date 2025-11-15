@@ -17,7 +17,7 @@ var controller: bool = false
 var playerList = []
 
 # Spawner Code Temp
-@onready var terrain: Terrain3D = $NavMap/Terrain3D  # Adjust to your terrain node path
+#@onready var terrain: Terrain = $NavMap/Terrain3D  # Adjust to your terrain node path
 
 @export var spawn_interval: float = 10.0
 @export var spawn_area_size: float = 20.0
@@ -150,20 +150,21 @@ func add_zombie() -> void:
 
 
 	# Generate random XZ position within spawn area
-	var x = randf_range(-spawn_area_size / 2, spawn_area_size / 2)
-	var z = randf_range(-spawn_area_size / 2, spawn_area_size / 2)
+	var x: float = randf_range(-spawn_area_size / 2, spawn_area_size / 2)
+	var z: float = randf_range(-spawn_area_size / 2, spawn_area_size / 2)
 	
 	# Query the terrain height (this is the magic part)
-	var y = terrain.data.get_height(Vector3(x, 0, z))
+	#var y = terrain.data.get_height(Vector3(x, 0, z))
 	#terrain.
-	if is_nan(y):
-		return
+	#if is_nan(y):
+		#return
 		
 	var zombie: Node = Enemy.instantiate()
 	zombie.name = "Zombie" + str(randi_range(0, 1000))
 	zombie.set_multiplayer_authority(1)
 	$ZombieList.add_child(zombie)
-	zombie.position = Vector3(x, y + 1, z)
+	zombie.position = Vector3(x, 10, z)
+	#zombie.position = Vector3(x, y + 1, z)
 
 func upnp_setup() -> void:
 	var upnp: UPNP = UPNP.new()

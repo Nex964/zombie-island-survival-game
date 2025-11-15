@@ -2,12 +2,12 @@ extends CharacterBody3D
 
 @onready var camera: Camera3D = $Camera3D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var muzzle_flash: GPUParticles3D = $Camera3D/pistol/GPUParticles3D
+@onready var muzzle_flash: GPUParticles3D = $Camera3D/RightHand/pistol/GPUParticles3D
 @onready var raycast: RayCast3D = $Camera3D/RayCast3D
 @onready var gunshot_sound: AudioStreamPlayer3D = %GunshotSound
 @onready var virtualStick: VirtualJoystick = $"../Hud/Hud2/MarginContainer/VBoxContainer/VirtualJoystick"
-@onready var shootParticles = preload("res://prefabs/Shoot.tscn")
-@onready var bulletDecal = preload("res://prefabs/effects/bullet_decal.tscn")
+@onready var shootParticles: PackedScene = preload("res://prefabs/Shoot.tscn")
+@onready var bulletDecal: PackedScene = preload("res://prefabs/effects/bullet_decal.tscn")
 
 @onready var healthBar: ProgressBar = $"../Hud/Hud/MarginContainer/HBoxContainer/Stats/HealthBar"
 @onready var staminaBar: ProgressBar = $"../Hud/Hud/MarginContainer/HBoxContainer/Stats/StaminaBar"
@@ -19,8 +19,8 @@ extends CharacterBody3D
 
 ## The xyz position of the random spawns, you can add as many as you want!
 @export var spawns: PackedVector3Array = ([
-	Vector3(-18, 100.2, 0),
-	Vector3(18, 100.2, 0),
+	Vector3(0, 10.2, 0),
+	Vector3(0, 10.2, 0),
 ])
 var sensitivity : float =  .005
 var controller_sensitivity : float =  .010
